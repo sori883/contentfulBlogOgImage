@@ -1,7 +1,7 @@
-import type { CanvasRenderingContext2D } from 'canvas';
+import type  { SKRSContext2D } from '@napi-rs/canvas';
 
 // 文字列の描画時の縦横のサイズを取得する
-export const textSize = (ctx: CanvasRenderingContext2D, text: string): { width: number, height: number } => {
+export const textSize = (ctx: SKRSContext2D, text: string): { width: number, height: number } => {
   const measure = ctx.measureText(text);
   const width: number = Math.floor(measure.width);
   const height: number = Math.floor(measure.actualBoundingBoxAscent + measure.actualBoundingBoxDescent);
@@ -39,7 +39,7 @@ export const textSplit = (text: string): string[] => {
 };
 
 // 最大範囲に収まらない長い単語を文字単位に分割
-export const wordBreak = (ctx: CanvasRenderingContext2D, max_width: number, texts: string[]): string[] => {
+export const wordBreak = (ctx: SKRSContext2D, max_width: number, texts: string[]): string[] => {
   const text_processed: string[] = [];
   for (let i = 0; i < texts.length; ++i) {
     const width = textSize(ctx, texts[i] as string).width;
@@ -55,7 +55,7 @@ export const wordBreak = (ctx: CanvasRenderingContext2D, max_width: number, text
 };
 
 // 1行に収まるように文字列を連結します。最大幅を超える時に新たな行を生成します。
-export const createTextLines = (ctx: CanvasRenderingContext2D, max_width: number, texts: string[]): string[] => {
+export const createTextLines = (ctx: SKRSContext2D, max_width: number, texts: string[]): string[] => {
   const text_lines: string[] = [];
   let line_buffer = '';
 
