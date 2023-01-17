@@ -16,7 +16,7 @@ const current = process.cwd();
 
 export const generateOgImage = async (title: string): Promise<Buffer> => {
   // font を登録
-  const font = path.resolve(current, 'public/canvas/NotoSansJP-Bold.otf');
+  const font = path.resolve(current, 'src/canvas/NotoSansJP-Bold.otf');
   registerFont(font, { family: 'NotoSansJP', });
 
   // canvas を作成
@@ -25,7 +25,7 @@ export const generateOgImage = async (title: string): Promise<Buffer> => {
   const ctx = canvas.getContext('2d');
 
   // 元になる画像を読み込む
-  const src = path.resolve(current, 'public/canvas/og_image.png');
+  const src = path.resolve(current, 'src/canvas/og_image.png');
   const image = await loadImage(fs.readFileSync(src));
 
   // 元の画像を canvas にセットする

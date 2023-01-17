@@ -70,7 +70,7 @@ export default async function (instance: FastifyInstance, _opts: FastifyServerOp
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.error(e.message);
-      const file = path.resolve(cwd, 'public/canvas/og_image_default.png');
+      const file = path.resolve(cwd, 'src/canvas/og_image_default.png');
       const siteImg = fs.readFileSync(file);
 
       reply.send(siteImg);
