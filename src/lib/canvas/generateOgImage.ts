@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { createCanvas, loadImage, registerFont } from 'canvas';
+import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
 
 import { getH } from './lineFn';
 import {
@@ -17,7 +17,7 @@ const current = process.cwd();
 export const generateOgImage = async (title: string): Promise<Buffer> => {
   // font を登録
   const font = path.resolve(current, 'src/canvas/NotoSansJP-Bold.otf');
-  registerFont(font, { family: 'NotoSansJP', });
+  GlobalFonts.registerFromPath(font, 'NotoSansJP');
 
   // canvas を作成
   const { width, height } = size;

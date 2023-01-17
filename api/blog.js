@@ -5,10 +5,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
+const core_1 = require("@apollo/client/core");
 const client_1 = require("./graphql/client");
-const generated_1 = require("./graphql/generated");
 const canvas_1 = require("./lib/canvas");
 const cwd = process.cwd();
+const PostDocument = (0, core_1.gql) `
+    query post($slug: String) {
+  postsCollection(where: {slug: $slug}) {
+    items {
+      title
+    }
+  }
+}
+    `;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function default_1(instance, _opts, done) {
     instance.get('/', async (_req, reply) => {
@@ -19,7 +28,7 @@ async function default_1(instance, _opts, done) {
             // 疎通をチェックする
             const slug = 'first_post';
             const { data } = await client_1.client.query({
-                query: generated_1.PostDocument,
+                query: PostDocument,
                 variables: { slug: slug }
             });
             const title = data.postsCollection?.items[0]?.title;
@@ -36,7 +45,7 @@ async function default_1(instance, _opts, done) {
         reply.header('Content-Type', 'image/png');
         try {
             const { data } = await client_1.client.query({
-                query: generated_1.PostDocument,
+                query: PostDocument,
                 variables: { slug: slug }
             });
             const title = data.postsCollection?.items[0]?.title;
@@ -46,7 +55,7 @@ async function default_1(instance, _opts, done) {
         }
         catch (e) {
             console.error(e.message);
-            const file = path_1.default.resolve(cwd, 'public/canvas/og_image_default.png');
+            const file = path_1.default.resolve(cwd, 'src/canvas/og_image_default.png');
             const siteImg = fs_1.default.readFileSync(file);
             reply.send(siteImg);
         }
