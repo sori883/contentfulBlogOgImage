@@ -9,7 +9,7 @@
     "build": "tsc -p tsconfig.json",
     "start": "node api/serverless.js",
     "codegen": "graphql-codegen --config codegen.yml",
-    "vercel-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 /node_modules/canvas/build/Release/ && yarn build"
+    "vercel-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && yarn build"
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
