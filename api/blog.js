@@ -46,7 +46,7 @@ async function default_1(instance, _opts, done) {
         }
         catch (e) {
             console.error(e.message);
-            const file = path_1.default.resolve(cwd, 'src/canvas/og_image_default.png');
+            const file = path_1.default.resolve(cwd, 'public/canvas/og_image_default.png');
             const siteImg = fs_1.default.readFileSync(file);
             reply.send(siteImg);
         }
