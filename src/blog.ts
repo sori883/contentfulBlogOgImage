@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { gql } from '@apollo/client/core';
 
 import type {
   FastifyInstance,
@@ -10,14 +11,24 @@ import type {
 } from 'fastify';
 
 import { client } from './graphql/client';
-import {
-  PostDocument,
+import type {
   PostQuery,
   PostQueryVariables,
 } from './graphql/generated';
+
 import { generateOgImage } from './lib/canvas';
 
 const cwd = process.cwd();
+
+const PostDocument = gql`
+    query post($slug: String) {
+  postsCollection(where: {slug: $slug}) {
+    items {
+      title
+    }
+  }
+}
+    `;
 
 interface RequestGeneric extends RequestGenericInterface {
   Params: {
@@ -70,7 +81,7 @@ export default async function (instance: FastifyInstance, _opts: FastifyServerOp
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.error(e.message);
-      const file = path.resolve(cwd, 'public/canvas/og_image_default.png');
+      const file = path.resolve(cwd, 'src/canvas/og_image_default.png');
       const siteImg = fs.readFileSync(file);
 
       reply.send(siteImg);

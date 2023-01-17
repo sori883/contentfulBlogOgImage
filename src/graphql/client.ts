@@ -2,12 +2,9 @@ import {
   ApolloClient,
   HttpLink,
   InMemoryCache
-} from "@apollo/client";
+} from "@apollo/client/core";
 import fetch from 'cross-fetch';
-import * as dotenv from "dotenv";
 
-
-dotenv.config();
 const CONTENTFUL_GRAPHQL_ENDPOINT = process.env.CONTENTFUL_GRAPHQL_ENDPOINT;
 
 export const client = new ApolloClient({
