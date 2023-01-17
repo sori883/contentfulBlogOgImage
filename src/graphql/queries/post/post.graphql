@@ -1,0 +1,7 @@
+query post($slug: String) {
+  postsCollection(where: {slug: $slug}){
+    items {
+      title
+    }
+  }
+}
